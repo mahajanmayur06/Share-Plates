@@ -1,6 +1,7 @@
 import React from 'react'
 import ResReg from './ResReg'
 import pic1 from './image.png'
+import './ResReg.css'
 import './Community.css'
 const Community = () => {
   return (
