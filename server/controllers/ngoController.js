@@ -17,8 +17,9 @@ exports.getAllNGOs = async (req, res) => {
 
 // Controller function to register a new NGO
 exports.registerNGO = async (req, res) => {
-    const { name, contactNum, scale } = req.body;
-
+    const { name} = req.body;
+    const contactNumber = '83984993'
+    const scale = 'medium'
     try {
         const existingNGO = await NGO.findOne({ name });
         if (existingNGO) {
@@ -27,7 +28,7 @@ exports.registerNGO = async (req, res) => {
 
         const newNGO = new NGO({
             name,
-            contactNum,
+            contactNumber,
             scale
         });
 
