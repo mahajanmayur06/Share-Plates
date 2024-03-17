@@ -5,6 +5,17 @@ const MapsWithLocation = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [coordinates, setCoordinates] = useState([null, null]);
 
+    const handleDonate = async (resName) => {
+        try {
+            const response = await axios.post('http://localhost:3500/register-community', {
+                name: resName
+            });
+            console.log('Donation successful:', response.data);
+        } catch (error) {
+            console.error('Error donating:', error);
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             // Fetch location from local storage
@@ -49,6 +60,7 @@ const MapsWithLocation = () => {
               
                       const nearbyRestaurantsResponse = await axios.request(nearbyRestaurantsOptions);
                       setRestaurants(nearbyRestaurantsResponse.data.results);
+                      
                   } catch (error) {
                       console.error(error);
                   }
@@ -73,11 +85,16 @@ const MapsWithLocation = () => {
             <form onSubmit={handleSubmit}>
                 {/* <button type="submit">Submit</button> */}
             </form>
-            {/* <ul>
-                {restaurants.map((restaurant, index) => (
-                    <li key={index}>{restaurant.name}</li>
+            
+            <ul>
+                {restaurants.forEach((restaurant, index) => (
+                    <li key={index}>
+                        {restaurant}
+                        <button onClick={() => handleDonate(restaurant)}>Fix</button>
+                    </li>
                 ))}
-            </ul> */}
+            </ul>
+
         </div>
     );
 };

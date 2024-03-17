@@ -6,24 +6,37 @@ import './ResReg.css'
 const MapsWithLocationAndForm = () => {
     const [coordinates, setCoordinates] = useState([null, null]);
     const [ngos, setNgos] = useState(null);
+
     const [formData, setFormData] = useState({
         name: '',
         location: '',
         quantity: '',
-        expiry: ''
-    });
-
-    const handleChange = (e) => {
+        expiryDate: ''
+      });
+    
+      const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
-            ...formData,
-            [name]: value,
+          ...formData,
+          [name]: value
         });
-    };
-
+      };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form Data:', formData); // Debug statement to check the formData object
+    const data = {
+      name: formData.name,
+      location: formData.location,
+      quantity: formData.quantity,
+      expiryDate: formData.expiryDate
+    };
+    try {
+      const response = await axios.post('http://localhost:3500/register-restaurant', data);
+      console.log('sending data', response.data);
+      console.log(formData);
+    } catch (error) {
+      console.error('Error:', error);
+    }
 
         // Fetch location data
         const locationOptions = {
@@ -90,59 +103,47 @@ const MapsWithLocationAndForm = () => {
                 Together, we are making a tangible difference in
                 the lives of many, one meal at a time.</p>
             <div className='NGOMain'>
-                <div className='NgoContainer'>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor="name">Name:</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="location">Location:</label>
-                            <input
-                                type="text"
-                                id="location"
-                                name="location"
-                                value={formData.location}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="contactNumber">Quantity:</label>
-                            <input
-                                type="text"
-                                id="quantity"
-                                name="quantity"
-                                value={formData.quantity}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="contactNumber">Expiry Date:</label>
-                            <input
-                                type="date"
-                                id="expiry"
-                                name="expiry"
-                                value={formData.expiry}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <p>Latitude: {coordinates ? coordinates[0] : 'Loading...'} and Longitude: {coordinates ? coordinates[1] : 'Loading...'}</p>
-
-                        <button className='SubBut' type="submit">Submit</button>
-                    </form>
-                </div>
+            <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Location:
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Quantity:
+          <input
+            type="number"
+            name="quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Expiry Date:
+          <input
+            type="date"
+            name="expiryDate"
+            value={formData.expiryDate}
+            onChange={handleChange}
+          />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
 
                 <div className='NgoContainer'x>
                 {ngos ? (
