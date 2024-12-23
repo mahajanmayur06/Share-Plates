@@ -7,7 +7,7 @@ import Distributors from './Components/Distributors';
 import Navbar from './Components/Navbar/Navbar';
 import Volunteers from './Components/Volunteer/Volunteer';
 import Homepage from './Components/Homepage/Homepage';
-import Donate from './Donate/Donate';
+import Donate from './Components/Donate/Donate';
 import Maps from './Components/SignUp/maps';
 import RegisterForm from './Components/SignUp/Registerform'
 

@@ -1,5 +1,6 @@
 const NGO = require('../models/Ngo');
 const Restaurant = require('../models/Restaurant');
+const Volunteer = require('../models/Volunteer')
 
 // Controller function to get all NGOs
 exports.getAllNGOs = async (req, res) => {
@@ -83,7 +84,7 @@ exports.sendRequestToVolunteer = async (req, res) => {
             return res.status(404).json({ message: 'Volunteer not found' });
         }
 
-        const ngo = await Ngo.findOne({ name: ngoName });
+        const ngo = await NGO.findOne({ name: ngoName });
         if (!ngo) {
             return res.status(404).json({ message: 'NGO not found' });
         }

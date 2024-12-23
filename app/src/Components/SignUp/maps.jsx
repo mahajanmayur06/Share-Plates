@@ -17,7 +17,7 @@ const Maps = () => {
                     type: 'restaurant'
                 },
                 headers: {
-                    'X-RapidAPI-Key': '84649a33bemsh89067bd4af0ca65p1ab404jsnb6641d742154',
+                    'X-RapidAPI-Key': '8ed3523de8msh5f76f1ade5225e1p198c7cjsn8114ff608262',
                     'X-RapidAPI-Host': 'map-places.p.rapidapi.com'
                 }
             };

@@ -5,6 +5,8 @@ const path = require('path');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const mongoose = require('mongoose');
+const { config } = require('process');
+// const connectDB = require('./config/connectDB.js')
 const PORT = process.env.PORT || 3500;
 
 // Corrected MongoDB connection URL
