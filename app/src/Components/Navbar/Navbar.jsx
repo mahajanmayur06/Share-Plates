@@ -1,11 +1,19 @@
-// Navbar.jsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import './Navbar.css';
 
 const Navbar = () => {
-  
+  useEffect(() => {
+    gsap.from('.NavHead', { duration: 3, opacity: 0, ease: "power3.out" });
+    gsap.from('.NavLink', {
+      duration: 1,
+      opacity: 0,
+      y: -30,
+      stagger: 0.2,
+      ease: "power3.out"
+    });
+  }, []);
 
   return (
     <div className='Navbar'>
@@ -19,27 +27,19 @@ const Navbar = () => {
             <Link className='linked' to='/'>Home</Link>
           </div>
           <div className='NavLink'>
-            <Link className='linked' to='/community'>Communities</Link> 
+            <Link className='linked' to='/community'>Communities</Link>
           </div>
 
           <div className='NavLink'>
             <Link className='linked' to='/volunteers'>Volunteers</Link>
           </div>
-         
+
           <div className='NavLink'>
-          <Link className='linked' to='/distributors'>Distributors</Link>
-          </div>
-           
-          
-          <div className='NavLink'>
-            <Link className='linked' to='/donate'>Donate</Link>
+            <Link className='linked' to='/distributors'>Distributors</Link>
           </div>
 
           <div className='NavLink'>
             <Link className='linked' to='/aboutus'>About US</Link>
-          </div>
-          <div className='NavLink'>
-            <Link className='linked' to='/contactus'>Contact Us</Link>
           </div>
         </div>
       </div>

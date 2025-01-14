@@ -1,5 +1,6 @@
 const NGO = require('../models/Ngo');
 const Restaurant = require('../models/Restaurant');
+const Volunteer = require('../models/Volunteer')
 
 // Controller function to get all NGOs
 exports.getAllNGOs = async (req, res) => {
@@ -17,7 +18,7 @@ exports.getAllNGOs = async (req, res) => {
 
 // Controller function to register a new NGO
 exports.registerNGO = async (req, res) => {
-    const { name} = req.body;
+    const { name } = req.body;
     const contactNumber = '83984993'
     const scale = 'medium'
     try {
@@ -41,16 +42,16 @@ exports.registerNGO = async (req, res) => {
 };
 
 exports.giveRatings = async (req, res) => {
-    try{
+    try {
         const { restName, rating } = req.body
-        const restaurant = await Restaurant.findOne({name : restName })
+        const restaurant = await Restaurant.findOne({ name: restName })
         if (!restaurant) {
-            return res.status(400).json({ message : ''})
+            return res.status(400).json({ message: '' })
         }
         restaurant.rating.push_back(rating)
         await Restaurant.save()
-        return res.status(201).json({ message : 'rating saved'})
-    } catch(err) {
+        return res.status(201).json({ message: 'rating saved' })
+    } catch (err) {
         console.log(err);
     }
 }
@@ -58,9 +59,9 @@ exports.giveRatings = async (req, res) => {
 exports.getRating = async (req, res) => {
     try {
         const name = req.body.name
-        const restaurant = await Restaurant.findOne({name : restName})
+        const restaurant = await Restaurant.findOne({ name: restName })
         if (!restaurant) {
-            return res.status(400).json({ message : ''})
+            return res.status(400).json({ message: '' })
         }
         let sum = 0
         restaurant.ratings.forEach((index) => {
@@ -69,13 +70,13 @@ exports.getRating = async (req, res) => {
         const rating = sum / restaurant.ratings.length
         return res.status(201).json(rating)
     }
-    catch (err){
+    catch (err) {
         console.log(err);
     }
 }
 
 exports.sendRequestToVolunteer = async (req, res) => {
-    const { name , ngoName } = req.body;
+    const { name, ngoName } = req.body;
 
     try {
         const volunteer = await Volunteer.findById(name);
@@ -83,7 +84,7 @@ exports.sendRequestToVolunteer = async (req, res) => {
             return res.status(404).json({ message: 'Volunteer not found' });
         }
 
-        const ngo = await Ngo.findOne({ name: ngoName });
+        const ngo = await NGO.findOne({ name: ngoName });
         if (!ngo) {
             return res.status(404).json({ message: 'NGO not found' });
         }

@@ -27,48 +27,47 @@ const MapsWithLocation = () => {
                     method: 'GET',
                     url: 'https://maps-data.p.rapidapi.com/geocoding.php',
                     params: {
-                      query: storedLocation,
-                      lang: 'en',
-                      country: 'in'
+                        query: storedLocation,
+                        lang: 'en',
+                        country: 'in'
                     },
                     headers: {
-                      'X-RapidAPI-Key': '84649a33bemsh89067bd4af0ca65p1ab404jsnb6641d742154',
-                      'X-RapidAPI-Host': 'maps-data.p.rapidapi.com'
+                        'X-RapidAPI-Key': '8ed3523de8msh5f76f1ade5225e1p198c7cjsn8114ff608262',
+                        'X-RapidAPI-Host': 'maps-data.p.rapidapi.com'
                     }
-                  };
-                  
-                  try {
-                      const locationResponse = await axios.request(locationOptions);
-                      const { lat, lng } = locationResponse.data.data;
-                      setCoordinates([lat, lng]);
+                }
+                try {
+                    const locationResponse = await axios.request(locationOptions);
+                    const { lat, lng } = locationResponse.data.data;
+                    setCoordinates([lat, lng]);
 
-                      // Fetch nearby restaurants using the obtained coordinates
-                      const nearbyRestaurantsOptions = {
-                          method: 'GET',
-                          url: 'https://map-places.p.rapidapi.com/nearbysearch/json',
-                          params: {
-                              location: `${lat},${lng}`,
-                              radius: '1500',
-                              keyword: 'veg',
-                              type: 'restaurant'
-                          },
-                          headers: {
-                              'X-RapidAPI-Key': '84649a33bemsh89067bd4af0ca65p1ab404jsnb6641d742154',
-                              'X-RapidAPI-Host': 'map-places.p.rapidapi.com'
-                          }
-                      };
-              
-                      const nearbyRestaurantsResponse = await axios.request(nearbyRestaurantsOptions);
-                      setRestaurants(nearbyRestaurantsResponse.data.results);
-                      
-                  } catch (error) {
-                      console.error(error);
-                  }
+                    // Fetch nearby restaurants using the obtained coordinates
+                    const nearbyRestaurantsOptions = {
+                        method: 'GET',
+                        url: 'https://map-places.p.rapidapi.com/nearbysearch/json',
+                        params: {
+                            location: `${lat}, ${lng}`,
+                            radius: '1500',
+                            keyword: 'ngo',
+                            type: 'food'
+                        },
+                        headers: {
+                            'X-RapidAPI-Key': '8ed3523de8msh5f76f1ade5225e1p198c7cjsn8114ff608262',
+                            'X-RapidAPI-Host': 'map-places.p.rapidapi.com'
+                        }
+                    };
+
+                    const nearbyRestaurantsResponse = await axios.request(nearbyRestaurantsOptions);
+                    setRestaurants(nearbyRestaurantsResponse.data.results);
+
+                } catch (error) {
+                    console.error(error);
+                }
             } else {
                 console.log('Location not found in local storage');
             }
         };
-    
+
         fetchData();
     }, []);
 
@@ -85,7 +84,7 @@ const MapsWithLocation = () => {
             <form onSubmit={handleSubmit}>
                 {/* <button type="submit">Submit</button> */}
             </form>
-            
+
             <ul>
                 {restaurants.forEach((restaurant, index) => (
                     <li key={index}>
