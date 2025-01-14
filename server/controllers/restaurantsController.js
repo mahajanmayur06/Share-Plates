@@ -34,7 +34,7 @@ exports.registerRestaurant = async (req, res) => {
     try {
         const { name, location, quantity, expiryDate } = req.body;
         const exRestaurant = await Restaurant.findOne({ name: name, location: location });
-        console.log('in regi controller');
+        console.log('in regi controller123');
         if (exRestaurant) {
             // If the restaurant already exists, update its quantity
             exRestaurant.quantity = foodItem;
@@ -47,7 +47,7 @@ exports.registerRestaurant = async (req, res) => {
                 name: name,
                 location: location,
                 quantity: quantity,
-                expiryDate : expiryDate
+                expiryDate: expiryDate
             });
             console.log('Restaurant registered successfully');
             res.status(201).json({ message: 'Restaurant registered successfully', restaurant: newRestaurant });
@@ -59,7 +59,7 @@ exports.registerRestaurant = async (req, res) => {
 };
 
 exports.addFood = async (req, res) => {
-    const { name, location, quantity,  expiryDate } = req.body;
+    const { name, location, quantity, expiryDate } = req.body;
 
     try {
         let restaurant = await Restaurant.findOne({ name: name });

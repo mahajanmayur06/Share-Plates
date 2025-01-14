@@ -21,6 +21,7 @@ exports.checkFoodAvailability = async (req, res) => {
                 }
             }
         }
+        
     }
 
     if (availFoodArray.length > 0) {

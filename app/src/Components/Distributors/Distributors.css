@@ -1,0 +1,33 @@
+.maincol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ngocontainer {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin-top: 20px;
+  }
+  
+  .ngocontainer div {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 0 10px;
+  }
+  
+  .ngocontainer div p {
+    margin: 0;
+  }
+  .distri{
+    font-size: 36px;
+    font-weight: 600;
+    padding: 10px;
+    padding-bottom: 20px;
+  }
+  .dcontent{
+    padding: 10px;
+    font-size: 22px;
+
+  }
