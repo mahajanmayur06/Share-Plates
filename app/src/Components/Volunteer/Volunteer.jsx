@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Volunteer.css';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 const Volunteer = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -10,7 +10,7 @@ const Volunteer = () => {
     role: '', // Initialize role state
     contactNumber: '',
   });
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -37,10 +37,25 @@ const Volunteer = () => {
   };
 
   return (
+    <>
+    <header className="header">
+            <nav className="navbar">
+              <div className="logo-section">
+                <span className="logo-text">Share-Plates</span>
+              </div>
+              <div className="nav-links">
+                            <Link className='nav-link' to='/'>Home</Link>
+                            <Link className='nav-link' to='/community'>Communities</Link>
+                            <Link className='nav-link' to='/volunteers'>Volunteers</Link>
+                            <Link className='nav-link' to='/distributors'>Distributors</Link>
+                            <Link className='nav-link' to='/aboutus'>About US</Link>
+              </div>
+            </nav>
+          </header>
     <div className='volunteers'>
       <div className='node new'>
         <h2>Want to join the fight against hunger?</h2>
-        <p>
+        <div>
           <ul id='animatedList'>
             <li>Join us in our mission to combat food waste and hunger.</li>
             <li>Donate your surplus food through our innovative web application.</li>
@@ -49,46 +64,50 @@ const Volunteer = () => {
             <li>Create a brighter future where everyone has access to nutritious meals.</li>
             <li>Donate today and be a part of the solution!</li>
           </ul>
-        </p>
+        </div>
       </div>
       <div className='node'>
         <form className='form' onSubmit={handleSubmit}>
           <h2>Join Us</h2>
+          
           <label>
             <input
               className='input'
               type='text'
-              placeholder='Name'
+              placeholder=' '
               name='name'
               value={formData.name}
               onChange={handleChange}
               required
+              autoComplete="name"
             />
-            <span>Name</span>
+            <span>Full Name</span>
           </label>
 
           <label>
             <input
               className='input'
               type='email'
-              placeholder='Email'
+              placeholder=' '
               name='email'
               value={formData.email}
               onChange={handleChange}
               required
+              autoComplete="email"
             />
-            <span>Email</span>
+            <span>Email Address</span>
           </label>
 
           <label>
             <input
               className='input'
               type='text'
-              placeholder='Location'
+              placeholder=' '
               name='location'
               value={formData.location}
               onChange={handleChange}
               required
+              autoComplete="address-level2"
             />
             <span>Location</span>
           </label>
@@ -96,39 +115,44 @@ const Volunteer = () => {
           <label>
             <select
               className='input'
-              placeholder='Role'
               name='role'
               value={formData.role}
               onChange={handleChange}
               required
             >
-              <option value=''>Select Role</option>
-              <option value='Sorting'>Sorting</option>
-              <option value='Packing'>Packing</option>
-              <option value='Distribution'>Distribution</option>
+              <option value=''>Choose your preferred role</option>
+              <option value='Sorting'>Food Sorting</option>
+              <option value='Packing'>Food Packing</option>
+              <option value='Distribution'>Food Distribution</option>
             </select>
-            <span>Role</span>
+            <span>Volunteer Role</span>
           </label>
 
           <label>
             <input
               className='input'
-              type='text'
-              placeholder='Contact Number'
+              type='tel'
+              placeholder=' '
               name='contactNumber'
               value={formData.contactNumber}
               onChange={handleChange}
               required
+              autoComplete="tel"
             />
             <span>Contact Number</span>
           </label>
 
-          <button className='submit' type='submit'>
-            Submit
+          <button 
+            className={`submit ${isSubmitting ? 'loading' : ''}`} 
+            type='submit'
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? '' : 'Register as Volunteer'}
           </button>
         </form>
       </div>
     </div>
+    </>
   );
 };
 

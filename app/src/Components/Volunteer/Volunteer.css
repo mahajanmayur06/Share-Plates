@@ -1,126 +1,462 @@
-.volunteers{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.node{
-    height: 100%;
-    width: 50%;
-    /* border-left:2px solid #201c1c; */
-    padding-right: 50px;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #333;
 }
+
+/* Main Container */
+.volunteers {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 0;
+  background: linear-gradient(135deg, hsl(204, 100%, 97%) 0%, hsl(197, 71%, 94%) 100%);
+}
+
+/* Mission Section (Left Side) */
+.node.new {
+  flex: 1;
+  background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(215, 84%, 50%) 100%);
+  color: white;
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.node.new::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="70" r="1" fill="white" opacity="0.1"/><circle cx="70" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="90" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+}
+
+.node.new h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+
+.node.new h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: hsl(43, 96%, 56%);
+  margin-top: 1rem;
+  border-radius: 2px;
+}
+
+#animatedList {
+  list-style: none;
+  position: relative;
+  z-index: 1;
+}
+
+#animatedList li {
+  padding: 1rem 0;
+  padding-left: 2rem;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInLeft 0.6s ease forwards;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+#animatedList li:nth-child(1) { animation-delay: 0.1s; }
+#animatedList li:nth-child(2) { animation-delay: 0.2s; }
+#animatedList li:nth-child(3) { animation-delay: 0.3s; }
+#animatedList li:nth-child(4) { animation-delay: 0.4s; }
+#animatedList li:nth-child(5) { animation-delay: 0.5s; }
+#animatedList li:nth-child(6) { animation-delay: 0.6s; }
+
+#animatedList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 24px;
+  height: 24px;
+  background: hsl(158, 64%, 52%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Form Section (Right Side) */
+.node:not(.new) {
+  flex: 1;
+  background: hsl(0, 0%, 100%);
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
 .form {
-    height: 100vh;
-    width:25vw;
-    display: flex;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: hsl(31, 12%, 12%);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.form h2::after {
+  content: 'Register now and make a difference';
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  color: hsl(220, 13%, 42%);
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Form Fields */
+.form label {
+  display: block;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 1rem;
+  border: 2px solid hsl(220, 13%, 91%);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: hsl(210, 20%, 98%);
+  font-family: inherit;
+}
+
+.input:focus {
+  outline: none;
+  border-color: hsl(207, 90%, 54%);
+  background: white;
+  box-shadow: 0 0 0 3px hsla(207, 90%, 54%, 0.1);
+  transform: translateY(-2px);
+}
+
+.input:not(:placeholder-shown) {
+  background: white;
+  border-color: hsl(158, 64%, 52%);
+}
+
+/* Floating Labels */
+.form label span {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  color: hsl(220, 13%, 42%);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  background: transparent;
+  padding: 0 0.25rem;
+}
+
+.input:focus + span,
+.input:not(:placeholder-shown) + span {
+  transform: translateY(-2.5rem) scale(0.85);
+  color: hsl(207, 90%, 54%);
+  background: white;
+  font-weight: 500;
+}
+
+.input:not(:placeholder-shown) + span {
+  color: hsl(158, 64%, 52%);
+}
+
+/* Select Dropdown */
+select.input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%236b7280"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 3rem;
+}
+
+select.input:focus {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%232563eb"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>');
+}
+
+/* Submit Button */
+.submit {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(215, 84%, 50%) 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px hsla(207, 90%, 54%, 0.3);
+}
+
+.submit:hover::before {
+  left: 100%;
+}
+
+.submit:active {
+  transform: translateY(0);
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Loading State */
+.submit.loading {
+  color: transparent;
+}
+
+.submit.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Form Validation States */
+.input:invalid:not(:placeholder-shown) {
+  border-color: hsl(0, 84%, 60%);
+  background: hsl(0, 93%, 97%);
+}
+
+.input:invalid:not(:placeholder-shown) + span {
+  color: hsl(0, 84%, 60%);
+}
+
+.input:valid:not(:placeholder-shown) {
+  border-color: hsl(158, 64%, 52%);
+  background: hsl(142, 76%, 97%);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .volunteers {
     flex-direction: column;
-    /* margin-top: vh; */
-    /* margin-left; */
-    gap: 40px;
-    padding: 20px;
-    border-radius: 20px;
-    position: relative;
-    color:black;
   }
-  
 
-.new{
-  width:30vw;
-    min-height:100vh;
-    margin-left:8vw;
-    text-align: justify;
-}
-.new h2{
-  margin-top: 5%;
-  margin-left: 6%;
-  font-size: xx-large;
-}
-.new p{
-  font-size: x-large;
-  padding: 20px;
-}
- .form h2{
-    /* margin-left:13vw; */
-    font-size: xx-large;
-    font-weight:700;
-    margin-bottom: 0%;
+  .node.new,
+  .node:not(.new) {
+    padding: 3rem 2rem;
+  }
+
+  .node.new h2 {
+    font-size: 2rem;
+  }
+
+  .form h2 {
+    font-size: 1.875rem;
+  }
+
+  #animatedList li {
+    font-size: 1rem;
+    padding-left: 1.5rem;
+  }
 }
 
-  
-  .flex {
-    display: flex;
-    width: 100%;
-    gap: 6px;
+@media (max-width: 640px) {
+  .node.new,
+  .node:not(.new) {
+    padding: 2rem 1.5rem;
   }
-  
-  .form label {
-    position: relative;
-    width: 130%;
+
+  .node.new h2 {
+    font-size: 1.75rem;
   }
-  
-  .form label .input {
-    color: black;
-    width: 100%;
-    padding: 20px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid rgba(105, 105, 105, 0.397);
-    border-radius: 10px;
+
+  .form h2 {
+    font-size: 1.5rem;
   }
-  
-  .form label .input + span {
-    color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    left: 10px;
-    top: 0px;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-  }
-  
-  .form label .input:placeholder-shown + span {
-    top: 12.5px;
-    font-size: 0.9em;
-  }
-  
-  .form label .input:focus + span,
-  .form label .input:valid + span {
-    color: #000000;
-    top: 0px;
-    font-size: 1em;
-    font-weight: 600;
-  }
-  
+
   .input {
-    font-size: medium;
+    padding: 0.875rem;
   }
-  
-  .submit {
-    border: none;
-    outline: none;
-    padding: 10px;
-    margin-left: 8vw;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 16px;
-    transform: .3s ease;
-    background-color: #780000;
+
+  .form label span {
+    top: 0.875rem;
   }
-  
-  .submit:hover {
-    background-color: #9a0505;
+}
+
+/* Accessibility Improvements */
+.input:focus-visible {
+  outline: 2px solid hsl(207, 90%, 54%);
+  outline-offset: 2px;
+}
+
+.submit:focus-visible {
+  outline: 2px solid hsl(215, 84%, 50%);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(210, 20%, 95%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(215, 16%, 82%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(215, 20%, 65%);
+}
+
+/* Additional Animation Effects */
+.form {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  @keyframes pulse {
-    from {
-      transform: scale(0.9);
-      opacity: 1;
-    }
-  
-    to {
-      transform: scale(1.8);
-      opacity: 0;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+/* Interactive hover effects for form elements */
+.input:hover {
+  border-color: hsl(207, 90%, 54%);
+  background: white;
+}
+
+/* Enhanced visual feedback */
+.form label {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.form label:nth-child(2) { animation-delay: 0.1s; }
+.form label:nth-child(3) { animation-delay: 0.2s; }
+.form label:nth-child(4) { animation-delay: 0.3s; }
+.form label:nth-child(5) { animation-delay: 0.4s; }
+.form label:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Modern glassmorphism effect for form */
+.node:not(.new)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+/* Enhanced button interactions */
+.submit {
+  position: relative;
+  overflow: hidden;
+}
+
+.submit:hover {
+  background: linear-gradient(135deg, hsl(215, 84%, 50%) 0%, hsl(207, 90%, 54%) 100%);
+}
+
+/* Success state styling */
+.input.success {
+  border-color: hsl(158, 64%, 52%);
+  background: hsl(142, 76%, 97%);
+}
+
+.input.error {
+  border-color: hsl(0, 84%, 60%);
+  background: hsl(0, 93%, 97%);
+}
